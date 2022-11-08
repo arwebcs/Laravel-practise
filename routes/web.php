@@ -19,6 +19,7 @@ Route::get('/', function () {
     return redirect("login");
 });
 
+/*************************************** LOGIN AND LOGOUT *************************************** */
 Route::get('/login', function () {
     if (session()->has("session_username")) {
         return redirect('home');
@@ -34,26 +35,13 @@ Route::get('/logout', function () {
     }
     return redirect('login');
 });
+/*************************************** LOGIN AND LOGOUT *************************************** */
 
-Route::get('/add-student', function () {
-    if (session()->has("session_username")) {
-        return view('add-student', [StudentController::class, "loadView"]);
-    }
-    return redirect('login');
+/************************************GROUP MIDDLEWARES *************************************** */
+Route::group(["middleware" => ["protectedPages"]], function () {
+    Route::view("home", "home");
+    Route::get('/add-student', [StudentController::class, "loadView"]);
+    Route::post('/add-student', [StudentController::class, 'add']);
+    Route::get('/view-student', [StudentController::class, "viewStudents"]);
 });
-
-Route::get('/view-student', function () {
-    if (session()->has("session_username")) {
-        return view('view-student');
-    }
-    return redirect('login');
-});
-
-Route::get('/home', function () {
-    if (session()->has("session_username")) {
-        return view('home');
-    }
-    return redirect('login');
-});
-
-Route::post('/add-student', [StudentController::class, 'add']);
+/************************************GROUP MIDDLEWARES *************************************** */

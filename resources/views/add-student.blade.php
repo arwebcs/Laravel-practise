@@ -16,12 +16,12 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <label for="defaultFormControlInput" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="student_name" id="student_name" placeholder="John Doe" />
+                                <input type="text" class="form-control" name="student_name" id="student_name" placeholder="John Doe" value="{{old ('student_name') }} " />
                                 <div id="defaultFormControlHelp" class="form-text text-danger">
                                     @error("student_name"){{ $message }}@enderror
                                 </div>
                                 <label for="defaultFormControlInput" class="form-label">DOB</label>
-                                <input type="date" class="form-control" name="student_dob" id="student_dob" />
+                                <input type="date" class="form-control" name="student_dob" id="student_dob" value=" {{old ('student_dob') }} " />
                                 <div id="defaultFormControlHelp" class="form-text text-danger">
                                     @error("student_dob"){{ $message }}@enderror
                                 </div>
