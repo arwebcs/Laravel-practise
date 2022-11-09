@@ -42,6 +42,9 @@ Route::group(["middleware" => ["protectedPages"]], function () {
     Route::view("home", "home");
     Route::get('/add-student', [StudentController::class, "loadView"]);
     Route::post('/add-student', [StudentController::class, 'add']);
+    Route::get('/edit-student/{studentId}', [StudentController::class, "getStudent"]);
+    Route::post('/edit-student/{studentId}', [StudentController::class, "update"]);
+    Route::get('/delete-student/{studentId}', [StudentController::class, "deleteStudent"]);
     Route::get('/view-student', [StudentController::class, "viewStudents"]);
 });
 /************************************GROUP MIDDLEWARES *************************************** */

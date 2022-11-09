@@ -43,12 +43,12 @@
 
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="add-student" class="menu-link">
+                                <a href="../add-student" class="menu-link">
                                     <div data-i18n="Without menu">Add</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="view-student" class="menu-link">
+                                <a href="../view-student" class="menu-link">
                                     <div data-i18n="Without navbar">View</div>
                                 </a>
                             </li>
