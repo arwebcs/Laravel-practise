@@ -47,9 +47,12 @@ class StudentController extends Controller
         $student->student_id = $req->input("student_id");
         $student->full_name = $req->input("student_name");
         $student->dob = $req->input("student_dob");
-        $data = $req->file("pro_pic")->store("own_files");
-        $student->profile_pic = $data;
-        $student->profile_pic_type = Storage::mimeType($data);
+        $data = $req->file("pro_pic");
+        if ($data) {
+            $data = $data->store("own_files");
+            $student->profile_pic = $data;
+            $student->profile_pic_type = Storage::mimeType($data);
+        }
 
         if ($student->save()) {
             return redirect("edit-student/" . $req->input("student_id"));
