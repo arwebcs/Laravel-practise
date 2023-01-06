@@ -35,12 +35,9 @@ class Employee extends Controller
     {
         $data = ModelsEmployee::all();
         if (sizeof($data) > 0) {
-            return ["statusCode" => 200, "result" => response()->json($data, 200)->original];
+            return response()->json(["statusCode" => 200, "result" => $data], 200);
         } else {
-            return [
-                "statusCode" => 400,
-                "result" => response()->json("No records found", 400)->original
-            ];
+            return response()->json(["statusCode" => 400, "result" => "No records"], 400);
         }
     }
 
@@ -94,15 +91,18 @@ class Employee extends Controller
             $emp->employee_pic_type = $picture->getClientMimeType();
             $result = $emp->save();
             if ($result) {
-                return ["statusCode" => 201, "result" => response()->json("Successfully inserted", 201)->original];
+                return response()->json(["statusCode" => 201, "result" => "Successfully inserted"], 201);
             } else {
-                return ["statusCode" => 500, "result" => response()->json("Internal server error", 500)->original];
+                return response()->json(["statusCode" => 500, "result" => "Successfully inserted"], 500);
             }
         } else {
-            return response()->json([
-                "statusCode" => 400,
-                "error" => ["employee_pic" => $fileErr, "data" => $validator->errors()]
-            ], 400)->original;
+            return response()->json(
+                [
+                    "statusCode" => 400,
+                    "error" => ["employee_pic" => $fileErr, "data" => $validator->errors()]
+                ],
+                400
+            );
         }
     }
 
@@ -115,10 +115,10 @@ class Employee extends Controller
     public function show($id)
     {
         $data = ModelsEmployee::find($id);
-        if (!empty($data)) {
-            return ["statusCode" => 200, "result" => response()->json($data, 200)->original];
+        if (sizeof($data) > 0) {
+            return response()->json(["statusCode" => 200, "result" => $data], 200);
         } else {
-            return ["statusCode" => 400, "result" => response()->json("No records found", 400)->original];
+            return response()->json(["statusCode" => 400, "result" => "No records"], 400);
         }
     }
 
@@ -172,15 +172,18 @@ class Employee extends Controller
             $emp->employee_pic_type = $picture->getClientMimeType();
             $result = $emp->save();
             if ($result) {
-                return ["statusCode" => 201, "result" => response()->json("Successfully updated", 201)->original];
+                return response()->json(["statusCode" => 201, "result" => "Successfully updated"], 201);
             } else {
-                return ["statusCode" => 500, "result" => response()->json("Internal server error", 500)->original];
+                return response()->json(["statusCode" => 500, "result" => "Successfully updated"], 500);
             }
         } else {
-            return [
-                "statusCode" => 400,
-                "error" => ["employee_pic" => $fileErr, "data" => $validator->errors()]
-            ];
+            return response()->json(
+                [
+                    "statusCode" => 400,
+                    "error" => ["employee_pic" => $fileErr, "data" => $validator->errors()]
+                ],
+                400
+            );
         }
     }
 
@@ -199,12 +202,12 @@ class Employee extends Controller
                 if (File::exists($filepath)) {
                     File::delete($filepath);
                 }
-                return ["statusCode" => 200, "result" => response()->json("Successfully deleted", 200)->original];
+                return response()->json(["statusCode" => 201, "result" => "Successfully deleted"], 201);
             } else {
-                return ["statusCode" => 500, "result" => response()->json("Internal server error", 500)->original];
+                return response()->json(["statusCode" => 500, "result" => "Successfully deleted"], 500);
             }
         } else {
-            return ["statusCode" => 400, "result" => response()->json("No records found to delete", 400)->original];
+            return response()->json(["statusCode" => 400, "result" => "No records found to delete"], 400);
         }
     }
 }
